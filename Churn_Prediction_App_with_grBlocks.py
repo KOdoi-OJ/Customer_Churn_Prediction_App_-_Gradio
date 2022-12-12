@@ -71,8 +71,7 @@ internet_service_choices = ["Yes", "No", "No internet service"] # For the servic
 # ----- App Interface
 with gr.Blocks() as turn_on_the_gradio:
     gr.Markdown("# Telecom Customer Churn Prediction")
-    gr.Markdown("""This app uses a machine learning model to predict whether or not a customer will churn based on inputs made by you, the user. The (XGBoost) model was trained and built based on the Telecom Churn Dataset""")
-    
+    gr.Markdown("""This app uses a machine learning model to predict whether or not a customer will churn based on inputs made by you, the user. The (XGBoost) model was trained and built based on the Telecom Churn Dataset. You may refer to the expander at the bottom for more information on the inputs.""")
     
     # Phase 1: Receiving Inputs
     gr.Markdown("**Demographic Data**")
@@ -114,6 +113,30 @@ with gr.Blocks() as turn_on_the_gradio:
     # Output Prediction
     output = gr.Label("Awaiting Submission...")
     submit_button = gr.Button("Submit")
+    
+    # Expander for more info on columns
+    with gr.Accordion("Open for information on inputs"):
+        gr.Markdown("""This app receives the following as inputs and processes them to return the prediction on whether a customer, given the inputs, will churn or not.
+                    - Contract: The contract term of the customer (Month-to-Month, One year, Two year)
+                    - Dependents: Whether the customer has dependents or not (Yes, No)
+                    - DeviceProtection: Whether the customer has device protection or not (Yes, No, No internet service)
+                    - Gender: Whether the customer is a male or a female
+                    - InternetService: Customer's internet service provider (DSL, Fiber Optic, No)
+                    - MonthlyCharges: The amount charged to the customer monthly
+                    - MultipleLines: Whether the customer has multiple lines or not
+                    - OnlineBackup: Whether the customer has online backup or not (Yes, No, No Internet)
+                    - OnlineSecurity: Whether the customer has online security or not (Yes, No, No Internet)
+                    - PaperlessBilling: Whether the customer has paperless billing or not (Yes, No)
+                    - Partner: Whether the customer has a partner or not (Yes, No)
+                    - Payment Method: The customer's payment method (Electronic check, mailed check, Bank transfer(automatic), Credit card(automatic))
+                    - Phone Service: Whether the customer has a phone service or not (Yes, No)
+                    - SeniorCitizen: Whether a customer is a senior citizen or not
+                    - StreamingMovies: Whether the customer has streaming movies or not (Yes, No, No Internet service)
+                    - StreamingTV: Whether the customer has streaming TV or not (Yes, No, No internet service)
+                    - TechSupport: Whether the customer has tech support or not (Yes, No, No internet)
+                    - Tenure: Number of months the customer has stayed with the company
+                    - TotalCharges: The total amount charged to the customer
+                    """)
     
     submit_button.click(fn = process_and_predict,
                         outputs = output,
