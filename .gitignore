@@ -1,2 +1,5 @@
+.vs
+.vscode
+__pycache__
 venv 
 GRADIO APP FOR TELECOM CHURN PREDICTION CHANGELOG.txt
