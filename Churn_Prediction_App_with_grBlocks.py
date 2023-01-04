@@ -22,6 +22,16 @@ categoricals = ["gender", "SeniorCitizen", "Partner", "Dependents", "PhoneServic
 # ----- Helper Functions
 # Function to load ML toolkit
 def load_ml_toolkit(file_path=r"gradio_src\Gradio_App_toolkit"):
+    """
+    This function loads the ML items into this file. It takes the path to the ML items to load it.
+
+    Args:
+        file_path (regexp, optional): It receives the file path to the ML items, but defaults to the "gradio_src" folder in the repository. The full default relative path is r"gradio_src\Gradio_App_toolkit".
+
+    Returns:
+        file: It returns the pickle file (which in this case contains the Machine Learning items.)
+    """
+
     with open(file_path, "rb") as file:
         loaded_toolkit = pickle.load(file)
     return loaded_toolkit
@@ -39,6 +49,19 @@ model.load_model(r"gradio_src\xgb_model.json")
 
 # Function to process inputs and return prediction
 def process_and_predict(*args, encoder=encoder, scaler=scaler, model=model):
+    """
+    This function processes the inputs and returns the predicted churn status of the customer.
+    It receives the user inputs, the encoder, scaler and model. The inputs are then put through the same process as was done during modelling, i.e. encode categoricals,
+
+    Args:
+        encoder (OneHotEncoder, optional): It is the encoder used to encode the categorical features before training the model, and should be loaded either as part of the ML items or as a standalone item. Defaults to encoder, which comes with the ML Items dictionary.
+        scaler (MinMaxScaler, optional): It is the scaler (MinMaxScaler) used to scale the numeric features before training the model, and should be loaded either as part of the ML Items or as a standalone item. Defaults to scaler, which comes with the ML Items dictionary.
+        model (XGBoost, optional): This is the model that was trained and is to be used for the prediction. Since XGBoost seems to have issues with Pickle, import as a standalone. It defaults to "model", as loaded.
+
+    Returns:
+        Prediction (label): Returns the label of the predicted class, i.e. one of whether the given customer will churn or not.
+    """
+
     # Convert inputs into a DataFrame
     input_data = pd.DataFrame([args], columns=expected_inputs)
 
@@ -60,11 +83,11 @@ def process_and_predict(*args, encoder=encoder, scaler=scaler, model=model):
 
 
 # Define some variable limits and lists of options
-max_tenure = 1.61803398875 * 72 # Maximum value from the training data
-max_monthly_charges = 1.61803398875 * 200 # Maximum value from the training data
-max_total_charges = 1.61803398875 * 8684.8 # Maximum value from the training data
-yes_or_no = ["Yes", "No"] # For the columns with Yes and No as options
-internet_service_choices = ["Yes", "No", "No internet service"] # For the services that depend on internet service usage
+max_tenure = 1.61803398875 * 72 # Applied the Golden Ratio to the maximum value from the training data to leave room for increased customer tenures while still ensuring a limit on the possible inputs. 
+max_monthly_charges = 1.61803398875 * 200 # Applied the Golden Ratio to the maximum amount of monthly charges from the training data to leave room for increased amounts while still ensuring a limit on the possible inputs. 
+max_total_charges = 1.61803398875 * 8684.8 # Applied the Golden Ratio to the maximum amount of total charges from the training data to leave room for increased amounts while still ensuring a limit on the possible inputs. 
+yes_or_no = ["Yes", "No"] # To be used for the variables whose possible options are "Yes" or "No".
+internet_service_choices = ["Yes", "No", "No internet service"] # A variable for the choices available for the "Internet Service" variable
 
 
 
@@ -143,4 +166,4 @@ with gr.Blocks() as turn_on_the_gradio:
                         inputs = [gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod, MonthlyCharges, TotalCharges])
 
 turn_on_the_gradio.launch(favicon_path=r"gradio_src\app_thumbnail.png",
-                          inbrowser= True,) #share=True)
+                          inbrowser= True)

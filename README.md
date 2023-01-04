@@ -45,8 +45,20 @@ You can then run the app (still at the repository root):
 
 - With `inbrowser = True` defined, it should open a browser tab automatically. If it doesn't, type this address in your browser: <http://127.0.0.1:7860/>
 
+## Screenshots
+
+<table>
+    <tr>
+        <th>Gradio Churn Prediction App with Simple Gradio Interface</th>
+        <th>Gradio Churn Prediction App with Gradio Blocks</th>
+    </tr>
+    <tr>
+        <td><img src="screenshots\Churn_Prediction_App_with_grInterface.png"/></td>
+        <td><img src="screenshots\Churn_Prediction_App_with_grBlocks.png"/></td>
+    </tr>
+</table>
+
 ## Contact Information
 
-- [Kwame Otchere](https://www.linkedin.com/in/kwame-odoi-otchere/)
-- [Landing Page](https://kodoi-oj.github.io/)
+- [Kwame Otchere](https://kodoi-oj.github.io/)
 - [![Twitter](https://img.shields.io/twitter/follow/kwameoo_?style=social)](https://twitter.com/kwameoo_)
